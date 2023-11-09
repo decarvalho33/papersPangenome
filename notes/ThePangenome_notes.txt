@@ -1,0 +1,68 @@
+perspectivas promissoras práticas:
+
+1 - explicar o surgimento de pan-genomas pelo problema da vacina
+
+2 - motivação de criar pangenomas pra resolver o problema de definição de espécies - em https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2842946/pdf/nihms184050.pdf, eles resolveram isso pra bactérias usando algo muito parecido com pangenome reconstruction
+
+3 - Alguem pode dizer que pangenomas abertos existem pq montagens de novo são falhas. mas: (i) existem pangenomas fechados e (ii) [diferente] na vdd o problema dos pangenomas abertos/fechados é algo que remonta a história da ciência: complexity. É um tópico não só estudado na biologia, mas também na linguistíca etc.. (vale a pena contar a história aqui, só pesquisar complexity ou "a short diversion into the origins of the science of complex systems may be useful"). 
+	Outra questão dos complex systems é que evidencia a interdisciplinaridade pois o pessoal da biomédica só resolveu o problema deles com a ajuda de matematicos de sistemas.
+	
+4- pra dizer que é problema de bigdata, temos as estatisticas de quantos genomas foram sequenciados: https://gold.jgi.doe.gov/statistics
+
+
+entendimento Tettelin:
+
+1. O que é pangenoma?
+
+1.1 Motivação da pangeômica
+
+- Streptococcus agalactiae, comumente abreviada como GBS, que é uma sigla para "Group B Streptococcus". Essa bactéria, Streptococcus agalactiae, é uma das principais causadoras de infecções em recém-nascidos, mulheres grávidas e adultos com sistemas imunológicos enfraquecidos.
+- dificuldade de criar vacinas pra GBS (Streptococcus agalactiae) por meio de Capsular Polysaccharide-Based, por conta dos serótipos dessas membranas, então partiram pra fazer Protein-Based Vaccines.
+- então eles partiram pra vários estudos dos genomas disponíveis dessa bactéria, e viram que mesmo os single isolates ainda apresentavam grande variabilidade entre si, desafiando o projeto. 
+- mais interessante ainda, eles descobriram REGIÕES QUE CADA NOVO ISOLATE QUE ELES SEQUENCIAVAM, DAVAM VARIANTES. Essas regiões variáveis são frequentemente referidas como "regiões polimórficas" ou "regiões hipervariáveis" - pegar figura 2b da página 17 of 311
+- eaí veio A GRANDE DESCOBERTA: a expectativa era que novos sequenciamentos iriam dar 1% de variação, mas na vdd deu 20%!
+- [diferente] e essa expectativa, na vdd, tem mt a ver com o conceito de espécies, que as diferenciam baseados na capacidade dos individuos de reproduzirem entre si e gerarem filhos férteis, mas ainda existe empecílhos nessa def como a questão de seres assexuados. Perceba que se conseguir fechar a conta, com a resposta dessa pergunta, daria pra definir as espécies pelo genoma! isso é bem possível dado a revolução da genomica e a questão da Big Data. Ler mais em: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2842946/ 
+
+1.2 Primeiros passos do pangenoma motivados pela descoberta da alta variabilidade genética
+
+- e aí veio a GRANDE QUESTÃO: "QUANTOS GENES DO GBS EU VOU TER Q SEQUENCIAR PRA CHEGAR NA QUANTIDADE MÁXIMA DE GENES POSSÍVEIS PRA ELE?" pra isso, começamos o processo de criar um MODELO MATEMÁTICO pra isso.
+- perceba que até agora temos: uma questão cuja 'entrada' são os genomas já sequenciados e a saída é um número. No caso do GBS, já assumimos 2 coisas: que esse número tem que ser maior que 8 (já que temos variações neles); e que ele é finito.
+- o primeiro passo pra essa modelagem é assumir algumas outras coisas:
+	Uma é que iremos utilizar uma abordagem reference-free. Aqui, estamos sacrificando a simplicidade e praticidade das abordagens com referencia para obter uma abordagem livre de vieses. ([diferente] no caso das nossas leveduras isso é ainda mais importante, afinal os genomas de referência ficaram esse tempo todo controlados dentro de laboratórios enquanto as do bioetanol brasileiro estavam em guerra).
+	A outra é que iremos quantificar nossa pergunta por ORFs, (preciso entender melhor as implicações vantajosas/prejudiciais para análises biológicas qualitativas).
+- Com isso, temos que a nossa resposta (número escalar) da pergunta inicial será quantificada por ORFs.
+
+1.x Lei de Heap
+
+- a grande descoberta foi a existência de pangenomas abertos e fechados. Mesmo sendo muito intrigante essa ideia de sempre que novos isolates forem sequenciados ainda teriam novos genes, estudos posteriores provaram que isso está certo mesmo (Hogg et al. 2007). 
+- mais ainda, observou-se que esse tipo de problema se enquadra na área de sistemas complexos, uma abordagem científica amplamente estudada na história (Ledford 2015) que consiste em analisar macroscopicamente problemas de áreas diferentes, mas que compartilham as mesmas propriedades, com o intuito produzir modelos generativos capazes de modelá-los matematicamente.
+- (sera que vale a pena colocar o exemplo do Facebook aqui? se pá sim em.. pq com ele eu consigo mostrar bem a interdisciplinaridade desse estudo, que é sensacional.. valoriza demais a pesquisa)
+- E nessa abordagem, viu-se que o nosso problema se enquadra na verdade com uma Lei de Potência, ao invés do decaimento exponencial proposto anteriormente, o que foi comprovado ao sequenciarem mais amostras. Essa abstração para uma Lei de Potência já foi feita anteriormente também em estudos de linguistica, em que se estudavam a quantidade de novas palavras de inglês ao registrarem novos livros Gustav Herdan (1960), que posteriormente foi generalizada como lei de Heap (Heaps 1978).
+- [entenda essa entidade matemática: https://www.youtube.com/watch?v=JDp12gU-vEQ]
+- na prática,  
+
+
+
+
+EXTRAS:
+
+HOGG: Among the ques-
+tions we may ask about the supragenome, the most obvious is,
+how many strains must be sequenced to observe the entire (or
+nearly all) of the supragenome?. The problem is similar to
+determining the read coverage necessary to sequence an
+entire individual genome using a random shotgun library
+approach. Lander-Waterman statistics provide an answer in
+the latter case by using the assumption that reads are inde-
+pendently and randomly sampled from the genome with
+equal probability. Previously, Tettelin et al. [27] developed a supragenome model for S. agalactiae that, like Lander-
+Waterman statistics, is based on the assumption that contin-
+gency genes are independently sampled from the supragen-
+ome with equal probability, except in the case of rare genes,
+which are modeled as unique events that appear only once in
+the entire global population. The model requires four param-
+eters: the number of core genes, the number of contingency
+genes, the probability of finding a contingency gene, and the
+expected number of 'unique' genes found per strain
+
+8% SÓ DO PANGENOMA ERA DO CORE, DE UMA BACTERIA: https://pubmed.ncbi.nlm.nih.gov/19168257/
